@@ -7,13 +7,13 @@ function init () {
 }
 
 function pass () {
-  echo $(green PASS:) $TEST_NAME  
-  true
+  echo $(green PASS:) $TEST_NAME
+  exit 0
 }
 
 function fail () {
-  echo $(red FAIL:) $TEST_NAME
-  false
+  echo $(red FAIL:) $TEST_NAME $(red $*)
+  exit -1
 }
 
 function green () {
@@ -22,8 +22,13 @@ function green () {
 }
 
 function red () {
-  TEXT=$1
+  TEXT=$*
   echo "\033[1;31m$TEXT\033[0m"
+}
+
+function result_file () {
+  mkdir -p test_data
+  echo "test_data/temp"
 }
 
 init $*
