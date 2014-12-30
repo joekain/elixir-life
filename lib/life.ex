@@ -1,0 +1,2 @@
+defmodule Life do
+end
