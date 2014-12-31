@@ -4,8 +4,7 @@
 
 function main () {
   output=$(run_application)
-  validate_size $output
-  validate_empty $output
+  validate $output
 
   pass
 }
@@ -17,14 +16,10 @@ function run_application () {
   echo $output
 }
 
-function validate_size () {
+function validate () {
   output=$1
-  expected="      10       0     110 $output"
-  [ "$(wc $output)" == "$expected" ] || fail "Expected size 10x10"
-}
-
-function validate_empty () {
-  grep -v " " $1 > /dev/null && fail "Expected empty game board"
+  expected=empty10x10.dat
+  diff -u $1 $(gold empty10x10.dat) || fail "Expected to match empty10x10.dat"
 }
 
 main

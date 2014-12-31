@@ -31,4 +31,8 @@ function result_file () {
   echo "test_data/temp"
 }
 
+function gold () {
+  echo "test_data/$1"
+}
+
 init $*
