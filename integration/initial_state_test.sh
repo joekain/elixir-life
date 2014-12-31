@@ -12,7 +12,8 @@ function main () {
 
 function run_application () {
   output=`result_file`
-  mix run --size 10,10 --iterations 1 > $output
+  mix compile > /dev/null
+  mix run -e 'Life.CLI.main(["--size", "10,10", "--iterations", "1"])' > $output
   echo $output
 }
 
