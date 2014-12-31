@@ -35,4 +35,18 @@ function gold () {
   echo "test_data/$1"
 }
 
+function integration_runner () {
+  echo "\nIntegration Tests:"
+  for test in integration/*_test.sh ; do
+    $test
+  done
+  
+  if [ "$1" == "--pending" ]; then
+    echo "\nPending Integration Tests:"
+    for test in integration/*_test_p.sh ; do
+      $test
+    done
+  fi
+}
+
 init $*
