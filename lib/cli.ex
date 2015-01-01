@@ -4,6 +4,10 @@ defmodule Life.CLI do
   """
   
   def main(_args \\ System.argv) do
+    display
+  end
+  
+  defp display do
     IO.puts "          "
     IO.puts "          "
     IO.puts "          "
