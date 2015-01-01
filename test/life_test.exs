@@ -6,7 +6,7 @@ defmodule LifeTest do
     {:ok, expected} = File.read file
 
     assert Life.seed_board({ [seed: file], [], [] })
-    |> to_string == expected
+    |> Life.to_string == expected
   end
   
   test "It should run iterations" do
@@ -15,6 +15,6 @@ defmodule LifeTest do
     assert { [seed: "test_data/single10x10.dat"], [], [] }
     |> Life.seed_board
     |> Life.tick
-    |> to_string == empty
+    |> Life.to_string == empty
   end
 end

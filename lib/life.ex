@@ -14,4 +14,8 @@ defmodule Life do
   def tick(_board) do
     empty_board
   end
+  
+  def to_string(board) do
+    board
+  end
 end
