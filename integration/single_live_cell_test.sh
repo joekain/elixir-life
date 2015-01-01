@@ -8,7 +8,7 @@
 . integration/utils.sh "Single Live Cell Test"
 
 function main () {
-  output=$(run_application_iterations 1 "\"--seed\", \"single10x10.dat\"")
+  output=$(run_application_iterations 1 "\"--seed\", \"test_data/single10x10.dat\"")
   validate $output "empty10x10.dat"
 
   pass

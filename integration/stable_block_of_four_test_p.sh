@@ -8,7 +8,7 @@
 . integration/utils.sh "Stable Block of 4 Test"
 
 function main () {
-  output=$(run_application_iterations 1 "\"--seed\", \"four10x10.dat\"")
+  output=$(run_application_iterations 1 "\"--seed\", \"test_data/four10x10.dat\"")
   validate $output "four10x10.dat"
 
   pass
