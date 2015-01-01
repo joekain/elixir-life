@@ -7,6 +7,7 @@ defmodule Life.CLI do
     args
     |> parse_args
     |> Life.seed_board
+    |> Life.tick
     |> display
   end
   
