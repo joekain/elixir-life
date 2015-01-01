@@ -3,8 +3,14 @@ defmodule Life.CLI do
   Handle command line parsing and dispatch to commands.
   """
   
-  def main(_args \\ System.argv) do
+  def main(args \\ System.argv) do
+    args
+    |> parse_args
     display
+  end
+  
+  def parse_args(args) do
+    OptionParser.parse(args, strict: [seed: :string])
   end
   
   defp display do
