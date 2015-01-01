@@ -7,23 +7,14 @@ defmodule Life.CLI do
     args
     |> parse_args
     |> Life.seed_board
-    display
+    |> display
   end
   
   def parse_args(args) do
     OptionParser.parse(args, strict: [seed: :string])
   end
   
-  defp display do
-    IO.puts "          "
-    IO.puts "          "
-    IO.puts "          "
-    IO.puts "          "
-    IO.puts "          "
-    IO.puts "          "
-    IO.puts "          "
-    IO.puts "          "
-    IO.puts "          "
-    IO.puts "          "
+  defp display(board) do
+    IO.write board
   end
 end
