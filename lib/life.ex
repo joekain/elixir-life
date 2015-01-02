@@ -37,4 +37,12 @@ defmodule Life do
   defp state_as_int(_dead_or_nil_when_out_of_bounds), do: 0
   
   def to_string(board), do: Board.to_string(board)
+  
+  def run_game(args, display \\ &IO.write/1) do
+    args
+    |> Life.seed_board
+    |> Life.tick
+    |> Life.to_string
+    |> display.()
+  end
 end

@@ -17,4 +17,11 @@ defmodule LifeTest do
     |> Life.tick
     |> Life.to_string == empty
   end
+  
+  test "It should run the game" do
+    {:ok, expected} = File.read "test_data/empty10x10.dat"
+
+    assert { [seed: "test_data/single10x10.dat"], [], [] }
+    |> Life.run_game(fn (output) -> output end) == expected
+  end
 end
