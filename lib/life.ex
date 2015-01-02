@@ -7,7 +7,7 @@ defmodule Life do
   def run_game(args, display \\ &IO.write/1) do
     args
     |> seed_board
-    |> output(display)
+    |> output(display, animated?(args))
     |> run_loop(iterations(args), display)
   end
 
@@ -17,9 +17,8 @@ defmodule Life do
 
   defp empty_board, do: do_seed_board("test_data/empty10x10.dat")
   
-  defp iterations({args, _, _}) do
-    Keyword.get(args, :iterations)
-  end
+  defp iterations({args, _, _}), do: Keyword.get(args, :iterations)
+  defp animated?({args, _, _}),  do: Keyword.get(args, :animated)
   
   defp run_loop(board, 0, _display), do: board
   defp run_loop(board, nil, _display), do: board
@@ -55,11 +54,13 @@ defmodule Life do
   defp state_as_int(@live),                           do: 1
   defp state_as_int(_dead_or_nil_when_out_of_bounds), do: 0
   
-  defp output(board, display) do
-    board
-    |> board_to_string
-    |> display.()
-    
+  defp output(board, display, enable \\ true) do
+    if enable do
+      board
+      |> board_to_string
+      |> display.()
+    end
+
     board
   end
   
