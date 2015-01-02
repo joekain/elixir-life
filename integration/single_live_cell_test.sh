@@ -7,11 +7,4 @@
 
 . integration/utils.sh "Single Live Cell Test"
 
-function main () {
-  output=$(run_application_iterations 1 "\"--seed\", \"test_data/single10x10.dat\"")
-  validate $output "empty10x10.dat"
-
-  pass
-}
-
-main
+single_tick_test "single10x10.dat" "empty10x10.dat"

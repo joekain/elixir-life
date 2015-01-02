@@ -6,11 +6,4 @@
 
 . integration/utils.sh "Reproduction Test"
 
-function main () {
-  output=$(run_application_iterations 1 "\"--seed\", \"test_data/three10x10.dat\"")
-  validate $output "four10x10.dat"
-
-  pass
-}
-
-main
+single_tick_test "three10x10.dat" "four10x10.dat"

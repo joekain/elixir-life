@@ -7,11 +7,4 @@
 
 . integration/utils.sh "Stable Block of 4 Test"
 
-function main () {
-  output=$(run_application_iterations 1 "\"--seed\", \"test_data/four10x10.dat\"")
-  validate $output "four10x10.dat"
-
-  pass
-}
-
-main
+single_tick_test "four10x10.dat" "four10x10.dat"
