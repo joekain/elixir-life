@@ -2,6 +2,6 @@
 
 . integration/integration.sh
 
-mix test
+mix test || exit -1
 
 integration_runner $*
