@@ -6,10 +6,7 @@ defmodule Life.CLI do
   def main(args \\ System.argv) do
     args
     |> parse_args
-    |> Life.seed_board
-    |> Life.tick
-    |> Life.to_string
-    |> display
+    |> Life.run_game(&display/1)
   end
   
   def parse_args(args) do
