@@ -6,20 +6,19 @@ defmodule Life do
   
   def run_game(args, display \\ &IO.write/1) do
     args
-    |> Life.seed_board
-    |> Life.tick
-    |> Life.to_string
+    |> seed_board
+    |> tick
+    |> board_to_string
     |> display.()
   end
 
-  def seed_board({args, _, _}), do: Keyword.get(args, :seed) |> do_seed_board
-  
+  def  seed_board({args, _, _}), do: Keyword.get(args, :seed) |> do_seed_board
   defp do_seed_board(nil),      do: empty_board
   defp do_seed_board(seedfile), do: Board.new_from_file(seedfile)
 
   defp empty_board, do: do_seed_board("test_data/empty10x10.dat")
 
-  def tick(board), do: board |> Board.map(fn (key, value) -> apply_rules(key, value, board) end)
+  defp tick(board), do: board |> Board.map(fn (key, value) -> apply_rules(key, value, board) end)
   
   defp apply_rules({x, y}, value, board) do
     case {value, count_live_neighbors(x, y, board)} do
@@ -44,6 +43,6 @@ defmodule Life do
   defp state_as_int(@live),                           do: 1
   defp state_as_int(_dead_or_nil_when_out_of_bounds), do: 0
   
-  def to_string(board), do: Board.to_string(board)
+  def board_to_string(board), do: Board.to_string(board)
 
 end
