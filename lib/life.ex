@@ -25,8 +25,7 @@ defmodule Life do
   defp run_loop(board, count, display) do
     board
     |> tick
-    |> board_to_string
-    |> display.()
+    |> output(display)
     |> run_loop(count - 1, display)
   end
 
@@ -54,6 +53,13 @@ defmodule Life do
 
   defp state_as_int(@live),                           do: 1
   defp state_as_int(_dead_or_nil_when_out_of_bounds), do: 0
+  
+  defp output(board, display) do
+    board
+    |> board_to_string
+    |> display.()
+    board
+  end
   
   def board_to_string(board), do: Board.to_string(board)
 
