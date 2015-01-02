@@ -8,7 +8,7 @@ function run_application_iterations () {
   output=`result_file`
   mix compile > /dev/null
   mix run -e \
-    "Life.CLI.main([\"--size\", \"10,10\", \"--iterations\", $count, $other_args])" \
+    "Life.CLI.main([\"--size\", \"10,10\", \"--iterations\", \"$count\", $other_args])" \
       > $output
   echo $output
 }
