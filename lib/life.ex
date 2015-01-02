@@ -3,6 +3,14 @@ defmodule Life do
   
   @live 79  # O
   @dead 32  # <space>
+  
+  def run_game(args, display \\ &IO.write/1) do
+    args
+    |> Life.seed_board
+    |> Life.tick
+    |> Life.to_string
+    |> display.()
+  end
 
   def seed_board({args, _, _}), do: Keyword.get(args, :seed) |> do_seed_board
   
@@ -37,12 +45,5 @@ defmodule Life do
   defp state_as_int(_dead_or_nil_when_out_of_bounds), do: 0
   
   def to_string(board), do: Board.to_string(board)
-  
-  def run_game(args, display \\ &IO.write/1) do
-    args
-    |> Life.seed_board
-    |> Life.tick
-    |> Life.to_string
-    |> display.()
-  end
+
 end
