@@ -18,6 +18,7 @@ defmodule Life do
       {v, c} when (v == @live) and (c < 2)            -> @dead
       {v, c} when (v == @live) and (c == 2 or c == 3) -> @live
       {v, c} when (v == @live) and (c > 3)            -> @dead
+      {v, c} when (v == @dead) and (c == 3)           -> @live
       {v, _}                                          -> v
     end
   end
