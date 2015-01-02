@@ -7,9 +7,7 @@ defmodule Life do
   def run_game(args, display \\ &IO.write/1) do
     args
     |> seed_board
-    |> tick
-    |> board_to_string
-    |> display.()
+    |> run_loop(iterations(args), display)
   end
 
   def  seed_board({args, _, _}), do: Keyword.get(args, :seed) |> do_seed_board
@@ -17,6 +15,20 @@ defmodule Life do
   defp do_seed_board(seedfile), do: Board.new_from_file(seedfile)
 
   defp empty_board, do: do_seed_board("test_data/empty10x10.dat")
+  
+  defp iterations({args, _, _}) do
+    Keyword.get(args, :iterations)
+  end
+  
+  defp run_loop(board, 0, _display), do: board
+  defp run_loop(board, nil, _display), do: board
+  defp run_loop(board, count, display) do
+    board
+    |> tick
+    |> board_to_string
+    |> display.()
+    |> run_loop(count - 1, display)
+  end
 
   defp tick(board), do: board |> Board.map(fn (key, value) -> apply_rules(key, value, board) end)
   

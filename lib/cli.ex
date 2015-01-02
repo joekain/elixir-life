@@ -10,7 +10,7 @@ defmodule Life.CLI do
   end
   
   def parse_args(args) do
-    OptionParser.parse(args, strict: [seed: :string])
+    OptionParser.parse(args, strict: [seed: :string, iterations: :integer])
   end
   
   defp display(board) do

@@ -12,7 +12,7 @@ defmodule LifeTest do
   test "It should run the game" do
     {:ok, expected} = File.read "test_data/empty10x10.dat"
 
-    assert { [seed: "test_data/single10x10.dat"], [], [] }
+    assert { [seed: "test_data/single10x10.dat", iterations: 1], [], [] }
     |> Life.run_game(fn (output) -> output end) == expected
   end
 end
