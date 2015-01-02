@@ -41,7 +41,7 @@ function integration_runner () {
     $test
   done
   
-  if [ "$1" == "--pending" ]; then
+  if [ "$1" == "--pending" -a -e integration/*_test_p.sh ]; then
     echo "\nPending Integration Tests:"
     for test in integration/*_test_p.sh ; do
       $test
