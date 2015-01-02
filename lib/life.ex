@@ -17,6 +17,7 @@ defmodule Life do
     case {value, count_live_neighbors(x, y, board)} do
       {v, c} when (v == @live) and (c < 2)            -> @dead
       {v, c} when (v == @live) and (c == 2 or c == 3) -> @live
+      {v, c} when (v == @live) and (c > 3)            -> @dead
       {v, _}                                          -> v
     end
   end
