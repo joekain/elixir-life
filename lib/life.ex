@@ -38,13 +38,9 @@ defmodule Life do
       board[{x + dx, y + dy}]
     end
   end
-  
-  defp state_as_int(state) do
-    case state do
-      @live -> 1
-      _     -> 0
-    end
-  end
+
+  defp state_as_int(@live), do: 1
+  defp state_as_int(_), do: 0
   
   def to_string(board), do: Board.to_string(board)
 end
