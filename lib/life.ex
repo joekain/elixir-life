@@ -32,8 +32,8 @@ defmodule Life do
     for dx <- [-1, 0, 1], dy <- [-1, 0, 1], {dx, dy} != {0, 0}, do: board[{x + dx, y + dy}]
   end
 
-  defp state_as_int(@live), do: 1
-  defp state_as_int(_), do: 0
+  defp state_as_int(@live),                           do: 1
+  defp state_as_int(_dead_or_nil_when_out_of_bounds), do: 0
   
   def to_string(board), do: Board.to_string(board)
 end
