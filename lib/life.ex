@@ -7,6 +7,7 @@ defmodule Life do
   def run_game(args, display \\ &IO.write/1) do
     args
     |> seed_board
+    |> output(display)
     |> run_loop(iterations(args), display)
   end
 
@@ -58,6 +59,7 @@ defmodule Life do
     board
     |> board_to_string
     |> display.()
+    
     board
   end
   
