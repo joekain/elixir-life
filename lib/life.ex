@@ -4,20 +4,14 @@ defmodule Life do
   @live 79  # O
   @dead 32  # <space>
 
-  def seed_board({args, _, _}) do
-    Keyword.get(args, :seed) |> do_seed_board
-  end
+  def seed_board({args, _, _}), do: Keyword.get(args, :seed) |> do_seed_board
   
-  defp do_seed_board(nil), do: empty_board
-  defp do_seed_board(seedfile) do
-    Board.new_from_file(seedfile)
-  end
-  
+  defp do_seed_board(nil),      do: empty_board
+  defp do_seed_board(seedfile), do: Board.new_from_file(seedfile)
+
   defp empty_board, do: do_seed_board("test_data/empty10x10.dat")
 
-  def tick(board) do
-    board |> Board.map(fn (key, value) -> apply_rules(key, value, board) end)
-  end
+  def tick(board), do: board |> Board.map(fn (key, value) -> apply_rules(key, value, board) end)
   
   defp apply_rules({x, y}, value, board) do
     case {value, count_live_neighbors(x, y, board)} do
@@ -34,9 +28,7 @@ defmodule Life do
   end
   
   defp list_of_neighbors(x, y, board) do
-    for dx <- [-1, 0, 1], dy <- [-1, 0, 1], {dx, dy} != {0, 0} do
-      board[{x + dx, y + dy}]
-    end
+    for dx <- [-1, 0, 1], dy <- [-1, 0, 1], {dx, dy} != {0, 0}, do: board[{x + dx, y + dy}]
   end
 
   defp state_as_int(@live), do: 1
