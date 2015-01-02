@@ -43,4 +43,11 @@ defmodule Life.Board do
       true           -> [ 10, board[{x,y}] | do_transform(tail, board, y) ]
     end
   end
+  
+  def map(board, f) do
+    board
+    |> Map.keys
+    |> Enum.map(fn (key) -> { key, f.(key, board[key]) } end)
+    |> List.foldr(Map.new, fn ({key, value}, acc) -> Map.put(acc, key, value) end)
+  end
 end
