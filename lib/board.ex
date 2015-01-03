@@ -53,7 +53,11 @@ defmodule Life.Board do
   
   def pmap(list, f) do
     list
-    |> Enum.map(fn (elem) -> Task.async(fn -> f.(elem) end) end)
-    |> Enum.map(fn (task) -> Task.await(task) end)
+    |> Enum.chunk(8, 8, [])
+    |> Enum.flat_map(fn (chunk) ->
+      chunk
+      |> Enum.map(fn (elem) -> Task.async(fn -> f.(elem) end) end)
+      |> Enum.map(fn (task) -> Task.await(task) end)
+    end)
   end
 end
