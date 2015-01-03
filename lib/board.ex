@@ -47,7 +47,13 @@ defmodule Life.Board do
   def map(board, f) do
     board
     |> Map.keys
-    |> Enum.map(fn (key) -> { key, f.(key, board[key]) } end)
+    |> pmap(fn (key) -> { key, f.(key, board[key]) } end)
     |> List.foldr(Map.new, fn ({key, value}, acc) -> Map.put(acc, key, value) end)
+  end
+  
+  def pmap(list, f) do
+    list
+    |> Enum.map(fn (elem) -> Task.async(fn -> f.(elem) end) end)
+    |> Enum.map(fn (task) -> Task.await(task) end)
   end
 end
