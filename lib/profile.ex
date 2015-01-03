@@ -4,8 +4,15 @@ defmodule Profile do
   def go do
     :fprof.apply(&run_test/0, [])
     :fprof.profile()
-    :fprof.analyse()
+    :fprof.analyse(
+      [
+        callers: true,
+        sort: :own,
+        totals: true,
+        details: true
+      ]
+    )
   end 
   
-  defp run_test, do: Life.CLI.main(["--animated", "--iterations", "5", "--seed", "test_data/glider1.dat"])
+  def run_test, do: Life.CLI.main(["--animated", "--iterations", "5", "--seed", "test_data/glider1.dat"])
 end
