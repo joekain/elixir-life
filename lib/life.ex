@@ -29,7 +29,8 @@ defmodule Life do
     |> run_loop(count - 1, display)
   end
 
-  defp tick(board), do: board |> Board.map(fn (key, value) -> apply_rules(key, value, board) end)
+  defp tick(board), do:
+    board |> Board.map(fn (key, value) -> apply_rules(key, value, board) end)
   
   defp apply_rules({x, y}, value, board) do
     case {value, count_live_neighbors(x, y, board)} do
