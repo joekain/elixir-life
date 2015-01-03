@@ -26,7 +26,8 @@ defmodule Life.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      { :exprof, "~> 0.1" }
+      { :exprof, "~> 0.1" },
+      { :eflame, git: "https://github.com/proger/eflame.git" }
     ]
   end
 end
