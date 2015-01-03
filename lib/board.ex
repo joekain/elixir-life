@@ -51,10 +51,15 @@ defmodule Life.Board do
     |> List.foldr(Map.new, fn ({key, value}, acc) -> Map.put(acc, key, value) end)
   end
   
+  @chunk_size 128
+  
   def pmap(list, f) do
     list
-    |> Enum.chunk(128, 128, [])
-    |> Enum.map(fn (chunk) -> Task.async(fn -> Enum.map(chunk, fn (elem) -> f.(elem) end) end) end)
-    |> Enum.flat_map(fn (task) -> Task.await(task) end)
+    |> Enum.chunk(@chunk_size, @chunk_size, [])
+    |> Enum.map(&async_map(&1, f))
+    |> Enum.flat_map(&async_map_results(&1))
   end
+  
+  def async_map(list, f), do: Task.async(fn -> Enum.map(list, f) end)
+  def async_map_results(async), do: Task.await(async)
 end
