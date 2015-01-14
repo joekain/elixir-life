@@ -7,9 +7,17 @@ defmodule Mix.Tasks.Lifebench do
   Run a benchmark and save results
   """
   def run(_) do
+    prepare
+    
     collect_results(&Profile.run_test/0)
     |> Enum.to_list
     |> IO.inspect
+  end
+  
+  defp prepare do
+    Mix.Project.get!
+    Mix.Task.run("compile", [])
+    Mix.Task.run("loadpaths", [])
   end
   
   def collect_results(f) do
