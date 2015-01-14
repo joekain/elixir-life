@@ -6,12 +6,14 @@ defmodule Mix.Tasks.Lifebench do
   @moduledoc """
   Run a benchmark and save results
   """
+  
+  @number_of_runs 10
+  
   def run(_) do
     prepare
     
     collect_results(&Profile.run_test/0)
-    |> Enum.to_list
-    |> IO.inspect
+    |> write_results
   end
   
   defp prepare do
@@ -21,11 +23,17 @@ defmodule Mix.Tasks.Lifebench do
   end
   
   def collect_results(f) do
-    Stream.repeatedly(fn -> time(f) end) |> Stream.take(10)
+    Stream.repeatedly(fn -> time(f) end) |> Stream.take(@number_of_runs)
   end
   
   defp time(f) do
     {time, _value} = :timer.tc(f)
     time
+  end
+  
+  defp write_results(results) do
+    results
+    |> Enum.to_list
+    |> IO.inspect
   end
 end
