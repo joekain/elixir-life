@@ -27,7 +27,8 @@ defmodule Life.Mixfile do
   defp deps do
     [
       { :exprof, "~> 0.1" },
-      { :eflame, ~r/.*/, git: "https://github.com/proger/eflame.git", compile: "rebar compile"}
+      { :eflame, ~r/.*/, git: "https://github.com/proger/eflame.git", compile: "rebar compile"},
+      { :statistics, "~> 0.2.0"}
     ]
   end
 end
