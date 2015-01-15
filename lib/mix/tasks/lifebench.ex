@@ -4,16 +4,18 @@ defmodule Mix.Tasks.Lifebench do
   @shortdoc "Benchmark the Game of Life"
 
   @moduledoc """
-  Run a benchmark and save results
+  Run a benchmark and save results to a results file.
+  
+  Usage: mix lifebench <results file>
   """
   
   @number_of_runs 10
   
-  def run(_) do
+  def run(args) do
     prepare
     
     collect_results(&Profile.run_test/0)
-    |> write_results
+    |> write_results(args)
   end
   
   defp prepare do
@@ -31,9 +33,29 @@ defmodule Mix.Tasks.Lifebench do
     time
   end
   
-  defp write_results(results) do
+  defp write_results(results, args) do
+    f = get_output_file(args)
+
     results
     |> Enum.to_list
-    |> Enum.map(fn (result) -> IO.puts result end)
+    |> Enum.map(fn (result) -> IO.puts(f, "#{result}") end)
+  end
+  
+  defp get_output_file(args) do
+    case OptionParser.parse(args, strict: []) do
+      {[], [name], []} -> open_output_file(name)
+      {_, _, _}        -> usage
+    end
+  end
+  
+  defp open_output_file(name) do
+    case File.open(name, [:write]) do
+      {:ok, file} -> file
+      _           -> usage
+    end
+  end
+  
+  defp usage do
+    Kernel.exit("Usage: mix lifebench <results file>")
   end
 end
