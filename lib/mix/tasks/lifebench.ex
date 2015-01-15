@@ -34,6 +34,6 @@ defmodule Mix.Tasks.Lifebench do
   defp write_results(results) do
     results
     |> Enum.to_list
-    |> IO.inspect
+    |> Enum.map(fn (result) -> IO.puts result end)
   end
 end
