@@ -1,6 +1,9 @@
 defmodule Mix.Tasks.Lifebench.Cmp do
   use Mix.Task
-  alias Statistics, as: Stats
+  
+  defmodule Stats do
+    defstruct count: 0, mean: 0, stdev: 0
+  end
   
   @shortdoc "Compare Benchmarks of the Game of Life"
 
@@ -32,10 +35,11 @@ defmodule Mix.Tasks.Lifebench.Cmp do
   end
   
   defp compute_stats(results) do
+    %Stats
     {
-      Enum.count(results),
-      Stats.mean(results),
-      Stats.stdev(results)
+      count: Enum.count(results),
+      mean:  Statistics.mean(results),
+      stdev: Statistics.stdev(results)
     }
   end
 
@@ -46,15 +50,15 @@ defmodule Mix.Tasks.Lifebench.Cmp do
     {stats, t}
   end
   
-  defp compute_a([{n1, _, _}, {n2, _, _}]) do
+  defp compute_a([%Stats{count: n1}, %Stats{count: n2}]) do
     (n1 + n2) / (n1 * n2)
   end
   
-  defp compute_b([{n1, _, s1}, {n2, _, s2}]) do
+  defp compute_b([%Stats{count: n1, stdev: s1}, %Stats{count: n2, stdev: s2}]) do
     ( ((n1 - 1) * s1 * s1) + ((n2 - 1) * s2 * s2) ) / (n1 + n2 - 2)
   end
   
-  defp compute_t(a, b, [{_, u1, _}, {_, u2, _}]) do
+  defp compute_t(a, b, [%Stats{mean: u1}, %Stats{mean: u2}]) do
     abs(u1 - u2) / :math.sqrt(a * b)
   end
   
