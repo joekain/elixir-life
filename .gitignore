@@ -3,3 +3,5 @@
 erl_crash.dump
 *.ez
 test_data/temp
+/notes
+
