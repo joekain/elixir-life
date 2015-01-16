@@ -63,7 +63,7 @@ defmodule Mix.Tasks.Lifebench.Cmp do
   end
   
   defp report({[%Stats{mean: u1}, %Stats{mean: u2}] = stats, t}) do
-    IO.puts "#{u1} -> #{u2} with p < #{t_dist(t, df(stats))}"
+    IO.puts "#{u1} -> #{u2} (#{percent_increase(u1, u2)}) with p < #{t_dist(t, df(stats))}"
     IO.puts "t = #{t}, #{df(stats)} degrees of freedom"
   end
   
@@ -86,6 +86,15 @@ defmodule Mix.Tasks.Lifebench.Cmp do
     n1 + n2 - 2
   end
   
+  def percent_increase(u1, u2) do
+    percent = 100 * (u2 - u1) / u1
+    percent_s = Float.to_string(percent, [decimals: 2])
+    cond do
+      percent < 0 ->  "#{percent_s}%"
+      true        -> "+#{percent_s}%"
+    end
+  end
+    
   defp parse_args(args) do
     case OptionParser.parse(args, strict: []) do
       {[], [name1, name2], []} -> [name1, name2]
