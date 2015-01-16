@@ -39,7 +39,7 @@ defmodule Mix.Tasks.Lifebench.Cmp do
     {
       count: Enum.count(results),
       mean:  Statistics.mean(results),
-      stdev: corrected_stdev(results)
+      stdev: corrected_sample_stdev(results)
     }
   end
 
@@ -67,7 +67,7 @@ defmodule Mix.Tasks.Lifebench.Cmp do
     IO.puts "t = #{t}, #{df(stats)} degrees of freedom"
   end
   
-  defp corrected_stdev(list) do
+  defp corrected_sample_stdev(list) do
     mean = Statistics.mean(list)
     (Enum.map(list, fn(x) -> (mean - x) * (mean - x) end) |> Enum.sum) / (Enum.count(list) - 1)
     |> :math.sqrt
