@@ -1,4 +1,4 @@
 Life
 ====
 
-** TODO: Add description **
+A Game of Life implementation in Elixir.
