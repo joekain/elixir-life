@@ -5,7 +5,17 @@ defmodule Life.Mixfile do
     [app: :life,
      version: "0.0.1",
      elixir: "~> 1.0.0",
-     deps: deps]
+     deps: deps,
+     dialyzer: [
+       paths: [
+         "_build/dev/lib/eflame/ebin",
+         # "_build/dev/lib/exprintf/ebin/"  # too many warnings in exprintf
+         "_build/dev/lib/exprof/ebin/",
+         "_build/dev/lib/life/ebin",
+         "_build/dev/lib/statistics/ebin",
+       ]
+     ]
+    ]
   end
 
   # Configuration for the OTP application
